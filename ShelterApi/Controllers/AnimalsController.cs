@@ -17,7 +17,7 @@ public class AnimalsController : ControllerBase
 
   // GET: api/Reviews
   [HttpGet]
-  public async Task<ActionResult<IEnumerable<Animal>>> GetReviews([FromQuery] PaginationFilter filter)
+  public async Task<ActionResult<IEnumerable<Animal>>> GetReviews([FromQuery] PaginationFilter filter, string species)
   {
     PaginationFilter validFilter = new PaginationFilter();
     if (filter != null)
@@ -29,7 +29,18 @@ public class AnimalsController : ControllerBase
       .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
       .Take(validFilter.PageSize)
       .ToListAsync();
-    int totalRecords = await _context.Animals.CountAsync();
+    int totalRecords;
+    if (species != null)
+    {
+      PagedResponse = PagedResponse.Where(animal => animal.Species == species).ToList();
+      totalRecords = await _context.Animals.Where(
+        animal => animal.Species == species
+        ).CountAsync();
+    }
+    else
+    {
+      totalRecords = await _context.Animals.CountAsync();
+    }
     return Ok(new PagedResponse<List<Animal>>(PagedResponse, validFilter.PageNumber, validFilter.PageSize, totalRecords));
   }
 
