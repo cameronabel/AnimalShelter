@@ -45,12 +45,6 @@ Swagger documentation is located at https://localhost:7115/swagger/index.html
 
 ### GET /api/Animals
 
-Example Request
-
-```
-http://localhost:5249/api/Animals
-```
-
 Optional Parameters:
 
 `species`: filter by species
@@ -58,6 +52,12 @@ Optional Parameters:
 `pageNumber`: page number for pagination (default 1)
 
 `pageSize`: page size for pagination (default 5)
+
+Example Request
+
+```
+http://localhost:5249/api/Animals
+```
 
 Example Response
 
@@ -113,6 +113,125 @@ Example Response
   "errors": null,
   "message": null
 }
+```
+
+### POST /api/Animals
+
+No parameters
+
+Request body(json)
+
+```json
+{
+  "name": "string",
+  "species": "string",
+  "age": 0,
+  "weight": 0,
+  "sex": "string"
+}
+```
+
+Example Request Body
+
+```json
+{
+  "name": "Ridley",
+  "species": "Dog",
+  "age": 14,
+  "weight": 38,
+  "sex": "Male"
+}
+```
+
+Example Response
+
+```json
+{
+  "data": {
+    "animalId": 9,
+    "name": "Ridley",
+    "species": "Dog",
+    "age": 14,
+    "weight": 38,
+    "sex": "Male"
+  },
+  "succeeded": true,
+  "errors": null,
+  "message": "Animal added to database"
+}
+```
+
+### GET /api/Animals/{id}
+
+Required parameters:
+
+`id`: the animal's ID
+
+Example Request
+
+```
+http://localhost:5249/api/Animals/2
+```
+
+Example Response
+
+```json
+{
+  "data": {
+    "animalId": 2,
+    "name": "Ginger",
+    "species": "Dog",
+    "age": 43,
+    "weight": 70,
+    "sex": "Female"
+  },
+  "succeeded": true,
+  "errors": null,
+  "message": ""
+}
+```
+
+### PUT /api/Animals/{id}
+
+Required parameters:
+
+`id`: the animal's ID
+
+Example Request Body
+
+```json
+{
+  "animalId": 9,
+  "name": "Ridley",
+  "species": "Dog",
+  "age": 15,
+  "weight": 38,
+  "sex": "Male"
+}
+```
+
+Example Response
+
+```
+No Content
+```
+
+### DELETE /api/Animals/{id}
+
+Required parameters:
+
+`id`: the animal's ID
+
+Example Request
+
+```
+http://localhost:5249/api/Animals/2
+```
+
+Example Response
+
+```
+No Content
 ```
 
 ## Known Bugs

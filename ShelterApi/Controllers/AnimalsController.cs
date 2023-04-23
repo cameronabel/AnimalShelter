@@ -97,7 +97,7 @@ public class AnimalsController : ControllerBase
     _context.Animals.Add(animal);
     await _context.SaveChangesAsync();
 
-    return CreatedAtAction("GetAnimal", new { id = animal.AnimalId }, animal);
+    return CreatedAtAction("GetAnimal", new { id = animal.AnimalId }, new Response<Animal>(animal) { Message = "Animal added to database" });
   }
 
   // DELETE: api/Animals/5
